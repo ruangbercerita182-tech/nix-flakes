@@ -6,6 +6,8 @@
 
     nixpkgs-opencode.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,11 +19,17 @@
       nixpkgs,
       home-manager,
       nixpkgs-opencode,
+      nixpkgs-unstable,
       ...
     }:
     let
       system = "x86_64-linux";
       username = "sam";
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
@@ -32,6 +40,7 @@
         inherit pkgs;
         extraSpecialArgs = {
           opencodePkgs = nixpkgs-opencode.legacyPackages.${system};
+          inherit pkgs-unstable;
         };
 
         modules = [

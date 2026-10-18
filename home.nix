@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   lib,
   opencodePkgs,
   ...
@@ -50,26 +51,6 @@
       nixfmt
       nil
 
-      # JavaScript / TypeScript
-      nodejs
-      bun
-      typescript
-      typescript-language-server
-      prettier
-
-      # Python
-      python3
-      uv
-
-      # Go / Rust
-      go
-      go-task
-      golangci-lint
-      gopls
-      gotools
-      delve
-      templ
-
       #
       kind
       gnumake
@@ -95,7 +76,7 @@
       };
 
       init.defaultBranch = "main";
-      core.editor = "nvim";
+      core.editor = "helix";
       pull.rebase = false;
       push.autoSetupRemote = true;
       fetch.prune = true;
@@ -124,22 +105,8 @@
 
     settings = {
       git_protocol = "ssh";
-      editor = "nvim";
+      editor = "helix";
       prompt = "enabled";
-      version = 1;
-      "github.com" = {
-        HostName = "github.com";
-        User = "git";
-        IdentityFile = "~/.ssh/id_ed25519";
-        IdentitiesOnly = "yes";
-      };
-
-      "*" = {
-        AddKeysToAgent = "yes";
-        HashKnownHosts = true;
-        ServerAliveCountMax = 3;
-        ServerAliveInterval = 60;
-      };
 
       aliases = {
         co = "pr checkout";
@@ -160,13 +127,14 @@
         ServerAliveInterval = 60;
         ServerAliveCountMax = 3;
         HashKnownHosts = true;
+        IdentityFile = "/home/sam/.ssh/id_ed25519";
       };
 
       "github.com" = {
         HostName = "github.com";
         User = "git";
-        IdentityFile = "~/.ssh/id_ed25519";
         IdentitiesOnly = true;
+        IdentityFile = "/home/sam/.ssh/id_ed25519";
       };
     };
   };
