@@ -4,8 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
-    nixpkgs-opencode.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
@@ -18,7 +16,6 @@
     {
       nixpkgs,
       home-manager,
-      nixpkgs-opencode,
       nixpkgs-unstable,
       ...
     }:
@@ -39,7 +36,6 @@
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
-          opencodePkgs = nixpkgs-opencode.legacyPackages.${system};
           inherit pkgs-unstable;
         };
 

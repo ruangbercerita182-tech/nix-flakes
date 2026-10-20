@@ -1,9 +1,7 @@
 {
   config,
   pkgs,
-  pkgs-unstable,
   lib,
-  opencodePkgs,
   ...
 }:
 
@@ -14,54 +12,53 @@
   # Jangan ubah setelah konfigurasi pertama dibuat.
   home.stateVersion = "26.05";
 
-  home.packages =
-    (with pkgs; [
-      # Fonts
-      font-awesome
-      nerd-fonts.symbols-only
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.fira-code
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
+  home.packages = with pkgs; [
+    # Fonts
+    font-awesome
+    nerd-fonts.symbols-only
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
 
-      # Core CLI
-      git
-      gh
-      curl
-      wget
-      jq
-      ripgrep
-      fd
-      fzf
-      bat
-      eza
-      tree
-      htop
-      tmux
-      which
-      bc
+    # Core CLI
+    git
+    gh
+    curl
+    wget
+    jq
+    ripgrep
+    fd
+    fzf
+    bat
+    eza
+    tree
+    htop
+    tmux
+    which
+    bc
 
-      # Shell productivity
-      zoxide
-      starship
-      devenv
+    # Shell productivity
+    zoxide
+    starship
+    devenv
 
-      # Nix
-      nixfmt
-      nil
+    # Nix
+    nixfmt
+    nil
 
-      #
-      kind
-      gnumake
-      gcc
+    #
+    kind
+    gnumake
+    gcc
 
-      buf
-      protobuf
-    ])
-    ++ [
-      opencodePkgs.opencode
-    ];
+    buf
+    protobuf
+
+    bun
+    nodejs
+  ];
 
   programs.home-manager.enable = true;
 
@@ -153,6 +150,7 @@
     initExtra = lib.mkBefore ''
       . "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh"
       eval "$(devenv hook bash)"
+      export PATH="/home/sam/.bun/bin:$PATH"
     '';
   };
 
