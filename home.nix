@@ -10,6 +10,9 @@
   home.homeDirectory = "/home/sam";
 
   # Jangan ubah setelah konfigurasi pertama dibuat.
+  # environment {
+  # "XDG_DATA_DIRS" "/home/sam/.nix-profile/share:/usr/local/share:/usr/share"
+  # }
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
@@ -42,7 +45,10 @@
     # Shell productivity
     zoxide
     starship
-    devenv
+
+    # The devenv CLI comes from the nix profile instead of home-manager: the
+    # CLI has to match the devenv modules that a project pins, and nixpkgs
+    # unstable carries the matching release.
 
     # Nix
     nixfmt
@@ -56,7 +62,6 @@
     buf
     protobuf
 
-    bun
     nodejs
   ];
 
